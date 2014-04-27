@@ -15,6 +15,7 @@ require 'delayed/plugin'
 require 'delayed/plugins/clear_locks'
 require 'delayed/backend/base'
 require 'delayed/worker'
+require 'delayed/serialization_error'
 require 'delayed/deserialization_error'
 require 'delayed/railtie' if defined?(Rails::Railtie)
 
