@@ -82,7 +82,11 @@ module Delayed
 
       def payload_object=(object)
         @payload_object = object
-        self.handler = object.to_yaml
+        yaml = object.to_yaml
+        if yaml.length > 0xffff
+          raise SerializationError, "object too large. class:#{object.class.name} id:#{object.id}"
+        end
+        self.handler = yaml
       end
 
       def payload_object

@@ -441,6 +441,11 @@ shared_examples_for "a delayed_job backend" do
         }.to raise_error(Delayed::DeserializationError)
       end
     end
+
+    it "raises serialization error when the object is too large" do
+      story = Story.create(:text => 'a' * 0x10000)
+      expect{story.delay.tell}.to raise_error(Delayed::SerializationError)
+    end
   end
 
   describe "worker integration" do
